@@ -21,7 +21,7 @@ var kPressed = false;
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
-var player1 = 	{	"c":"#0a2351",
+var player1 = 	{	"c":"#3B1F2B",
 					"v":1,
 					"p":40,
 					"x":0,
@@ -37,7 +37,7 @@ var player1 = 	{	"c":"#0a2351",
 					"dbx":0,
 					"dby":0
 					}
-var player2 = 	{	"c":"#374f2f",
+var player2 = 	{	"c":"#255957",
 					"v":-1,
 					"p":-50,
 					"x":0,
@@ -128,13 +128,15 @@ function drawPlayer(player) {
 
 
 	ctx.beginPath();
+	ctx.shadowBlur=20;
+	ctx.shadowColor="black";
 	ctx.rect(-50,-45,100,100);
 	ctx.fillStyle = player.c;
 	ctx.fill();
 	ctx.closePath();
 	ctx.beginPath();
 	ctx.rect(player.p,0,10,10);
-	ctx.fillStyle = "#dc6c20";
+	ctx.fillStyle = "#F09D51";
 	ctx.fill();
 	ctx.closePath();
 	
@@ -147,6 +149,8 @@ function drawPlayer(player) {
 function drawBullet(player){
 	ctx.beginPath();
 	ctx.save();
+	ctx.shadowBlur=20;
+	ctx.shadowColor="black";
 	ctx.arc(player.bx,player.by,10,0,2*Math.PI);
 	ctx.fillstyle="#0033FF";
 	ctx.fillStroke="#0033FF";
@@ -159,8 +163,7 @@ function draw() {
 	//Drawing code
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	
-	drawPlayer(player1);
-	drawPlayer(player2);
+	
 	if(player1.b)
 		drawBullet(player1);
 		if(player1.bx>canvas.width||player1.bx<0||player1.by>canvas.height||player1.by<0)
@@ -169,7 +172,8 @@ function draw() {
 		drawBullet(player2);
 		if(player2.bx>canvas.width||player2.bx<0||player2.by>canvas.height||player2.by<0)
 			player2.b=false;
-		
+	drawPlayer(player1);
+	drawPlayer(player2);	
 	//console.log(wPressed);
 	if(wPressed&&player1.y==canvas.height-100){
 		player1.dy=-20;
@@ -241,10 +245,15 @@ function hit(){
 	if(player1.b&&player1.bx>player2.x&&player1.bx<player2.x+100&&player1.by>player2.y&&player1.by<player2.y+100){
 		score1++;
 		player1.b=false;
+		if (score1>10){alert("Player 1 Wins!");
+		score1=0;}
 	}
 	if(player2.b&&player2.bx>player1.x&&player2.bx<player1.x+100&&player2.by>player1.y&&player2.by<player1.y+100){
 		score2++;
-		player2.b=false;}
+		player2.b=false;
+		if (score2>10){
+			alert("Player 2 Wins!");
+			score2=0;}}
 }
 function bulletReset(player){
 	player.b=false;
