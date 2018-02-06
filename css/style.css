@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+
+* { 
+	padding: 0;
+	margin: 0; 
+}
+body{background-color: #A59FAB;}
+canvas {
+	background: #85292c;
+	display: block;
+	margin: 0 auto;
+}
+h1 {
+	font-size: 60px;
+	text-align: center;
+	font-family: Lobster;
+	padding:10px;
+}
