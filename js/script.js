@@ -234,9 +234,7 @@ function shoot(player){
 	player.dbx=player.v*Math.cos(-player.d*Math.PI/180)*10;
 	
 	player.b=true;
-	console.log(player.dbx);
-	console.log(player.dby);
-	console.log(player.d);
+	
 	
 }
 function hit(){
