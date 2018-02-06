@@ -1,6 +1,6 @@
 //Dalton Pearson
 //2/5/2018
-//360 Sniper Game
+//UpJump
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var canvas = document.getElementById("myCanvas");
@@ -20,7 +20,7 @@ var kPressed = false;
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
-
+//should change key names to be more descriptive
 var player1 = 	{	"c":"#3B1F2B",
 					"v":1,
 					"p":40,
@@ -142,8 +142,7 @@ function drawPlayer(player) {
 	
 	ctx.restore();
 	player.d+=player.av;
-	//player.d=player.d%360;
-	//player.d=player.d/360;
+	
 	
 }
 function drawBullet(player){
@@ -174,7 +173,7 @@ function draw() {
 			player2.b=false;
 	drawPlayer(player1);
 	drawPlayer(player2);	
-	//console.log(wPressed);
+	 
 	if(wPressed&&player1.y==canvas.height-100){
 		player1.dy=-20;
 		player1.av=360/41;
@@ -187,8 +186,8 @@ function draw() {
 		player1.dy=0;
 		player1.av=0;
 	}
-
-	if (sPressed&&player1.y<canvas.height-100&&!player1.b)
+	//player overlap detection, should be a method
+	if (sPressed&&player1.y<canvas.height-100&&!player1.b&&!(player1.y+50>player2.y&&player1.y+50<player2.y+100&&player1.x+50>player2.x&&player1.x<player2.x+100))
 		{shoot(player1)}
 
 	if(iPressed&&player2.y==canvas.height-100){
@@ -203,8 +202,8 @@ function draw() {
 		player2.dy=0;
 		player2.av=0;
 	}
-
-	if (kPressed&&player2.y<canvas.height-100&&!player2.b)
+	//player overlap detection, should be a method
+	if (kPressed&&player2.y<canvas.height-100&&!player2.b&&!(player2.y+50>player1.y&&player2.y+50<player1.y+100&&player2.x+50>player1.x&&player2.x<player1.x+100))
 		{shoot(player2)}
 	if (aPressed&&player1.x>0){player1.x-=10}
 	if (dPressed&&player1.x<canvas.width-100){player1.x+=10}
@@ -218,7 +217,9 @@ function draw() {
     player1.by += player1.dby;
     player2.bx += player2.dbx;
     player2.by += player2.dby;
+    scoreAlert();
     hit();
+   
 }
 
 function rotate(player) {
@@ -245,17 +246,24 @@ function hit(){
 	if(player1.b&&player1.bx>player2.x&&player1.bx<player2.x+100&&player1.by>player2.y&&player1.by<player2.y+100){
 		score1++;
 		player1.b=false;
-		if (score1>10){alert("Player 1 Wins!");
-		score1=0;}
+		
 	}
 	if(player2.b&&player2.bx>player1.x&&player2.bx<player1.x+100&&player2.by>player1.y&&player2.by<player1.y+100){
 		score2++;
 		player2.b=false;
-		if (score2>10){
-			alert("Player 2 Wins!");
-			score2=0;}}
+		}
 }
 function bulletReset(player){
 	player.b=false;
+}
+function scoreAlert(){
+	if (score1>=10){
+		alert("Player 1 Wins!");
+		location.reload();
+	}
+	if (score2>=10){
+		alert("Player 2 Wins!");
+		location.reload();
+	}
 }
 setInterval(draw, 20);
