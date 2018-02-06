@@ -266,4 +266,6 @@ function scoreAlert(){
 		location.reload();
 	}
 }
+draw();
+alert("Player 1 use the w, a, d keys to move and s to shoot.\nPlayer 2 use the i, j, l keys to move and k to shoot.\nYou can only shoot while in the air and you can only have one bullet on the screen at one time.\nFirst to 10 points wins!");
 setInterval(draw, 20);
