@@ -260,12 +260,12 @@ function scoreAlert(){
 	if (score1>=10){
 		alert("Player 1 Wins!");
 		location.reload();
-		return true;
+		score1 =0;
 	}
 	if (score2>=10){
 		alert("Player 2 Wins!");
 		location.reload();
-		return true;
+		score2=0;
 	}
 }
 draw();
